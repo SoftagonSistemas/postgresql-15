@@ -8,7 +8,7 @@ RUN apk add --no-cache wget tar
 RUN wget https://github.com/prometheus-community/postgres_exporter/releases/download/v0.13.1/postgres_exporter-0.13.1.linux-amd64.tar.gz && \
     tar -zxvf postgres_exporter-0.13.1.linux-amd64.tar.gz && \
     mv postgres_exporter-0.13.1.linux-amd64/postgres_exporter /usr/local/bin/ && \
-    rm -rf postgres_exporter-0.13.1.linux-amd64.tar.gz postgres_exporter-0.13.1.linux-amd64
+    rm -rf postgres_exporter-0.13.1.linux-amd64.tar.gz
 
 # Instale o PostGIS
 RUN apk add --no-cache postgis
@@ -21,6 +21,9 @@ RUN wget https://github.com/wal-g/wal-g/releases/download/v2.0.1/wal-g-fdb-ubunt
 
 # Copie o arquivo de configuração do Prometheus
 COPY prometheus.yml /etc/prometheus/prometheus.yml
+
+# Copie o arquivo de configuração do PostgreSQL Server Exporter
+COPY postgres_exporter.yml /etc/prometheus/postgres_exporter.yml
 
 # Copie o script de backup diário para o diretório /docker-entrypoint-initdb.d/
 COPY backup.sh /docker-entrypoint-initdb.d/backup.sh

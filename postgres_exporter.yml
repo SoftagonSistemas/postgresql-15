@@ -1,0 +1,10 @@
+# Configuração do PostgreSQL Server Exporter
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'postgres'
+
+scrape_configs:
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']  # Endereço e porta do PostgreSQL Server Exporter
