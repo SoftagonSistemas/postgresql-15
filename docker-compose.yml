@@ -2,6 +2,8 @@ version: "3"
 
 services:
   softagon-db:
+    build: 
+      context: .
     image: postgresql-15:alpha
     environment:
       - POSTGRES_USER=myuser

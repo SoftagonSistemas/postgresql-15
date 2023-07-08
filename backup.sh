@@ -10,7 +10,8 @@ export AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
 export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
 
 # Obter uma lista de todos os bancos de dados
-DATABASES=$(psql -U postgres -l -t | cut -d'|' -f1 | sed -e 's/ //g' -e '/^$/d')
+export PGUSER="$POSTGRES_USER"
+DATABASES=$(psql postgres -l -t | cut -d'|' -f1 | sed -e 's/ //g' -e '/^$/d')
 
 # Realizar o backup de cada banco de dados separadamente usando o WAL-G
 for DB_NAME in $DATABASES
