@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 10s
 
 scrape_configs:
   - job_name: 'prometheus'
@@ -18,8 +18,4 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: postgres-exporter:9187
-
-  - job_name: 'node'
-    static_configs:
-      - targets: ['node-exporter:9100']
+        replacement: srv-captain--cidade-transparente-postgres:9187 ## Endereço e porta do PostgreSQL Server Exporter 
