@@ -2,9 +2,7 @@ version: "3"
 
 services:
   softagon-db:
-    build:
-      context: .
-    image: postgresql-15:latest
+    image: softagon/postgresql-15:latest
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
