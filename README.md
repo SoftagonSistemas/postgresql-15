@@ -77,3 +77,4 @@ A porta 9090 é do Prometheus, a 9187 é do postgres_exporter que deve ser usado
 
 ## Contribuição
 Este projeto é de código aberto, gerenciado pela [Softagon Sistemas](https://softagon.com.br) e você é encorajado a contribuir. Sinta-se à vontade para enviar problemas, solicitações de recursos ou pull requests.
+
