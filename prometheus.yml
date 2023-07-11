@@ -18,8 +18,4 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: postgres-exporter:9187
-
-  - job_name: 'node'
-    static_configs:
-      - targets: ['node-exporter:9100']
+        replacement: localhost:9187
