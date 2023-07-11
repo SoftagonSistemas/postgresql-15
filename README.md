@@ -72,6 +72,8 @@ Consulte a documentação do PostgreSQL para obter informações mais detalhadas
 	    	- 5432:5432
 	    	- 9090:9090
 	    	- 9187:9187
+### Portas
+A porta 9090 é do Prometheus, a 9187 é do postgres_exporter que deve ser usado junto ao Prometheus, você poderia conferir se está em pleno funcionamento visitando http://localhost:9090/targets
 
 ## Contribuição
 Este projeto é de código aberto, gerenciado pela [Softagon Sistemas](https://softagon.com.br) e você é encorajado a contribuir. Sinta-se à vontade para enviar problemas, solicitações de recursos ou pull requests.
