@@ -9,12 +9,14 @@ services:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=mydatabase
+      - ARCHIVE_MODE=on
+      - ARCHIVE_TIMEOUT=30
       - AWS_ENDPOINT=s3.amazonaws.com
       - AWS_S3_BUCKET=my-bucket
       - AWS_ACCESS_KEY_ID=my-access-key
       - AWS_SECRET_ACCESS_KEY=my-secret-key
       - BACKUP_RETENTION_DAYS=7
-      - BACKUP_DIRECTORY=/backups
+      - BACKUP_DIRECTORY=my-path
     volumes:
       - ./data:/var/lib/postgresql/data
       - ./backup:/backups

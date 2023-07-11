@@ -148,7 +148,9 @@ COPY prometheus.yml /etc/prometheus/prometheus.yml
 #COPY postgres_exporter.yml /etc/prometheus/prometheus.yml
 
 # Copie o script de backup diário para o diretório /docker-entrypoint-initdb.d/
-COPY backup.sh /docker-entrypoint-initdb.d/backup.sh
+#COPY backup.sh /docker-entrypoint-initdb.d/backup.sh
+COPY backup.sh /usr/local/bin/backup-pg.sh
+COPY archive.sh /usr/local/bin/archive-pg.sh
 
 # Copie o script de teste para o diretório /usr/local/bin/
 COPY test.sh /usr/local/bin/test.sh
@@ -161,7 +163,7 @@ COPY postgis.sh /docker-entrypoint-initdb.d/postgis.sh
 COPY init-services.sh /usr/local/bin/init-services.sh
 
 # Dê permissão de execução ao script de backup e ao script de teste
-RUN chmod +x /docker-entrypoint-initdb.d/backup.sh /usr/local/bin/test.sh /docker-entrypoint-initdb.d/postgis.sh /usr/local/bin/init-services.sh
+RUN chmod +x /usr/local/bin/*.sh /docker-entrypoint-initdb.d/postgis.sh
 
 # Variáveis de ambiente padrão para configuração do servidor AWS
 ENV AWS_ENDPOINT="s3.amazonaws.com"
@@ -179,5 +181,6 @@ ENV BACKUP_DIRECTORY="/backups"
 EXPOSE 5432 9090 9187
 
 # Inicie o PostgreSQL Server Exporter e o teste em segundo plano
-#CMD postgres_exporter --config.file=/etc/prometheus/postgres_exporter.yml --log.level=info & docker-entrypoint.sh postgres & /usr/local/bin/test.sh
+#CMD ["postgres","-c","wal_buffers=64MB"]
+RUN sed -i '/exec "$@"/i archive-pg.sh' /usr/local/bin/docker-entrypoint.sh
 RUN sed -i '/exec "$@"/i init-services.sh &' /usr/local/bin/docker-entrypoint.sh
