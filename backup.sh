@@ -11,6 +11,13 @@ export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
 
 # Obter uma lista de todos os bancos de dados
 export PGUSER="$POSTGRES_USER"
+export PGPASSWORD="$POSTGRES_PASSWORD"
+export PGHOST=localhost
+export PGPORT=5432
+export WALG_S3_PREFIX="s3://$AWS_S3_BUCKET/"
+export WALG_UPLOAD_CONCURRENCY="2"
+export WALG_DOWNLOAD_CONCURRENCY="2"
+
 DATABASES=$(psql postgres -l -t | cut -d'|' -f1 | sed -e 's/ //g' -e '/^$/d')
 
 # Realizar o backup de cada banco de dados separadamente usando o WAL-G

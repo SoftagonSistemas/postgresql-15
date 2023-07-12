@@ -2,9 +2,7 @@ version: "3"
 
 services:
   softagon-db:
-    build: 
-      context: .
-    image: postgresql-15:alpha
+    image: softagon/postgresql-15:latest
     environment:
       - POSTGRES_USER=${POSTGRES_USER:-myuser}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mypassword}
@@ -20,6 +18,7 @@ services:
     volumes:
       - ${VOL_PG_DATA:-./data}:/var/lib/postgresql/data
       - ${VOL_PG_BKP:-./backup}:/backups
+      - ${VOL_PROMETHEUS:-./etc/prometheus}:/etc/prometheus
     ports:
       - 5432:5432
       - 9090:9090
