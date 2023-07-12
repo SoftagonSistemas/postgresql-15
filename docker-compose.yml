@@ -6,20 +6,20 @@ services:
       context: .
     image: postgresql-15:alpha
     environment:
-      - POSTGRES_USER=myuser
-      - POSTGRES_PASSWORD=mypassword
-      - POSTGRES_DB=mydatabase
-      - ARCHIVE_MODE=on
-      - ARCHIVE_TIMEOUT=30
-      - AWS_ENDPOINT=s3.amazonaws.com
-      - AWS_S3_BUCKET=my-bucket
-      - AWS_ACCESS_KEY_ID=my-access-key
-      - AWS_SECRET_ACCESS_KEY=my-secret-key
-      - BACKUP_RETENTION_DAYS=7
-      - BACKUP_DIRECTORY=my-path
+      - POSTGRES_USER=${POSTGRES_USER:-myuser}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mypassword}
+      - POSTGRES_DB=${POSTGRES_DB:-mydatabase}
+      - ARCHIVE_MODE=${ARCHIVE_MODE:-off}
+      - ARCHIVE_TIMEOUT=${ARCHIVE_TIMEOUT:-0}
+      - AWS_ENDPOINT=${AWS_ENDPOINT:-s3.amazonaws.com}
+      - AWS_S3_BUCKET=${AWS_S3_BUCKET:-my-bucket}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-my-access-key}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-my-secret-key}
+      - BACKUP_RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-7}
+      - BACKUP_DIRECTORY=${BACKUP_DIRECTORY:-my-path}
     volumes:
-      - ./data:/var/lib/postgresql/data
-      - ./backup:/backups
+      - ${VOL_PG_DATA:-./data}:/var/lib/postgresql/data
+      - ${VOL_PG_BKP:-./backup}:/backups
     ports:
       - 5432:5432
       - 9090:9090

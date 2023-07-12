@@ -1,6 +1,7 @@
 # docker directory
 /data
 /backup
+.env
 
 # Prerequisites
 *.d
