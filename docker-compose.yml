@@ -14,7 +14,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-my-access-key}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-my-secret-key}
       - BACKUP_RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-7}
-      - BACKUP_DIRECTORY=${BACKUP_DIRECTORY:-my-path}
+      - BACKUP_DIRECTORY=${BACKUP_DIRECTORY:-backupdir}
     volumes:
       - ${VOL_PG_DATA:-./data}:/var/lib/postgresql/data
       - ${VOL_PG_BKP:-./backup}:/backups
