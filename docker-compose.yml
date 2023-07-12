@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mypassword}
       - POSTGRES_DB=${POSTGRES_DB:-mydatabase}
       - ARCHIVE_MODE=${ARCHIVE_MODE:-off}
-      - ARCHIVE_TIMEOUT=${ARCHIVE_TIMEOUT:-0}
+      - ARCHIVE_TIMEOUT=${ARCHIVE_TIMEOUT:-3600}
       - AWS_ENDPOINT=${AWS_ENDPOINT:-s3.amazonaws.com}
       - AWS_S3_BUCKET=${AWS_S3_BUCKET:-my-bucket}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-my-access-key}

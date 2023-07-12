@@ -44,7 +44,7 @@ A imagem Docker aceita as seguintes variáveis de ambiente para configurar o Pos
 -  `BACKUP_DIRECTORY`: Define o diretório de backup. O valor padrão é `/backups`.
 
 
-Consulte a documentação do PostgreSQL para obter informações mais detalhadas sobre essas variáveis de ambiente.
+Consulte a documentação oficial da ferramenta para obter informações mais detalhadas sobre essas variáveis de ambiente.
 
 
 ## Como usar
@@ -52,29 +52,33 @@ Consulte a documentação do PostgreSQL para obter informações mais detalhadas
 
      ```
      version: "3"
-    services:
-	    softagon-db:
-	    	image: softagon/postgresql-15:latest
-	    	environment:
-	    	- POSTGRES_USER=myuser
-	    	- POSTGRES_PASSWORD=mypassword
-	    	- POSTGRES_DB=mydatabase
-	    	- AWS_ENDPOINT=s3.amazonaws.com
-	    	- AWS_S3_BUCKET=my-bucket
-	    	- AWS_ACCESS_KEY_ID=my-access-key
-	    	- AWS_SECRET_ACCESS_KEY=my-secret-key
-	    	- BACKUP_RETENTION_DAYS=7
-	    	- BACKUP_DIRECTORY=/backups
-	    	volumes:
-	    	- ./data:/var/lib/postgresql/data
-	    	- ./backup:/backups
-	    	ports:
-	    	- 5432:5432
-	    	- 9090:9090
-	    	- 9187:9187
+
+	services:
+	softagon-db:
+		image: softagon/postgresql-15:latest
+		environment:
+		- POSTGRES_USER=${POSTGRES_USER:-myuser}
+		- POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mypassword}
+		- POSTGRES_DB=${POSTGRES_DB:-mydatabase}
+		- ARCHIVE_MODE=${ARCHIVE_MODE:-off}
+		- ARCHIVE_TIMEOUT=${ARCHIVE_TIMEOUT:-3600}
+		- AWS_ENDPOINT=${AWS_ENDPOINT:-s3.amazonaws.com}
+		- AWS_S3_BUCKET=${AWS_S3_BUCKET:-my-bucket}
+		- AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-my-access-key}
+		- AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-my-secret-key}
+		- BACKUP_RETENTION_DAYS=${BACKUP_RETENTION_DAYS:-7}
+		- BACKUP_DIRECTORY=${BACKUP_DIRECTORY:-backupdir}
+		volumes:
+		- ${VOL_PG_DATA:-./data}:/var/lib/postgresql/data
+		- ${VOL_PG_BKP:-./backup}:/backups
+		- ${VOL_PROMETHEUS:-./etc/prometheus}:/etc/prometheus
+		ports:
+		- 5432:5432
+		- 9090:9090
+		- 9187:9187
+
 ### Portas
 A porta 9090 é do Prometheus, a 9187 é do postgres_exporter que deve ser usado junto ao Prometheus, você poderia conferir se está em pleno funcionamento visitando http://localhost:9090/targets
 
 ## Contribuição
 Este projeto é de código aberto, gerenciado pela [Softagon Sistemas](https://softagon.com.br) e você é encorajado a contribuir. Sinta-se à vontade para enviar problemas, solicitações de recursos ou pull requests.
-
